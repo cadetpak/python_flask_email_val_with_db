@@ -1,0 +1,35 @@
+<html>
+	<head>
+		<title>Email Validation with DB Assignment</title>
+		<link rel="stylesheet" type="text/css" href = "{{url_for('static', filename="mystyle.css")}}">
+
+	</head>
+	<body>
+		<form action = '/'> 
+			<input type='submit' value='Add More'>
+		</form>
+		{% with messages = get_flashed_messages(with_categories=true) %}
+			{% if messages %}
+				<ul class = flashes> 
+				{% for category, message in messages %}
+					<li class="{{ category }}">{{ message }}</li> 
+				{% endfor %}
+				</ul>
+			{% endif %}
+		{% endwith %}
+
+		<h2>Email Addresses Entered:</h2>
+		{% for email in all_emails: %}
+			<p>{{email['email']}} {{email['created_at']}}</p>
+			<form action = '/destroy/{{email['id']}}' method='POST'> 
+				<input type='submit' value='Delete'>
+			</form>
+			<hr>
+		{%endfor%}
+
+
+	</body>
+
+
+
+</html>
